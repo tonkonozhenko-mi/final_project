@@ -14,7 +14,7 @@ export class StudentsService {
   }
 
   public getStudents(idClass): Observable<Student[]> {
-    return this.http.get<Student[]>('students/classes' + idClass);
+    return this.http.get<Student[]>('students/classes/' + idClass);
   }
 
   public addStudent(student: Student): Observable<Student> {
