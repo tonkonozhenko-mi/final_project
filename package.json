@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build; -r dist/eSchool.zip",
+    "build": "ng build;zip -r dist/eSchool.zip",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
