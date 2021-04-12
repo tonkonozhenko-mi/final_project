@@ -41,7 +41,6 @@ object Build : BuildType({
     params {
         param("AWS_REGION", "--region us-east-2")
         param("ECR_IMAGE_NAME", "back-eschool-mt-%ENV%")
-        param("ECR_NAME", "443172575185.dkr.ecr.us-east-2.amazonaws.com")
         param("docker.registry", "443172575185.dkr.ecr.us-east-2.amazonaws.com")
         param("docker.username", "AWS")
         param("docker.server", "https://%docker.registry%")
