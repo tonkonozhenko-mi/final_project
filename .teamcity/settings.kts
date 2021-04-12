@@ -66,6 +66,10 @@ object Build : BuildType({
             name = "docker build"
             scriptContent = "docker build -t front-eschool-mt ."
         }
+        script {
+            name = "docker tag"
+            scriptContent = "docker tag front-eschool-mt:latest 443172575185.dkr.ecr.us-east-2.amazonaws.com/front-eschool-mt:latest"
+        }
     }
 
     triggers {
