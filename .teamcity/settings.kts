@@ -41,7 +41,6 @@ object Build : BuildType({
     params {
         param("AWS_REGION", "--region us-east-2")
         param("ECS_CLUSTER_NAME", "back-eschool-mt")
-        param("ECS_SERVICE_NAME", "api-%ENV%")
         param("ECS_DEPLOY_OPTIONS", "--ignore-warnings --timeout 500")
         param("ECR_IMAGE_NAME", "back-eschool-mt-%ENV%")
         param("ECR_NAME", "443172575185.dkr.ecr.us-east-2.amazonaws.com")
