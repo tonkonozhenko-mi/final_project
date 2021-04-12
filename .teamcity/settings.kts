@@ -60,17 +60,6 @@ object Build : BuildType({
 
     steps {
         step {
-            name = """Upload build "dist""""
-            type = "ssh-deploy-runner"
-            enabled = false
-            param("jetbrains.buildServer.deployer.username", "ubuntu")
-            param("teamcitySshKey", "privat_aws.ppk")
-            param("jetbrains.buildServer.deployer.sourcePath", "dist/eSchool => eSchool.zip")
-            param("jetbrains.buildServer.deployer.targetUrl", "10.0.1.6:/var/www/html")
-            param("jetbrains.buildServer.sshexec.authMethod", "UPLOADED_KEY")
-            param("jetbrains.buildServer.deployer.ssh.transport", "jetbrains.buildServer.deployer.ssh.transport.scp")
-        }
-        step {
             name = """Unzip "dist""""
             type = "ssh-exec-runner"
             enabled = false
