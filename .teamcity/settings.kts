@@ -59,22 +59,6 @@ object Build : BuildType({
     }
 
     steps {
-        step {
-            name = """Unzip "dist""""
-            type = "ssh-exec-runner"
-            enabled = false
-            param("jetbrains.buildServer.deployer.username", "ubuntu")
-            param("jetbrains.buildServer.sshexec.command", """
-                cd /var/www/html/
-                cp -i eSchool.zip /var/www/eSchool.%env.BUILD_NUMBER%.zip
-                unzip -o eSchool.zip
-                rm eSchool.zip
-                sudo systemctl restart apache2
-            """.trimIndent())
-            param("teamcitySshKey", "privat_aws.ppk")
-            param("jetbrains.buildServer.deployer.targetUrl", "10.0.1.6")
-            param("jetbrains.buildServer.sshexec.authMethod", "UPLOADED_KEY")
-        }
         script {
             name = "Deploy to ECS"
             scriptContent = """
