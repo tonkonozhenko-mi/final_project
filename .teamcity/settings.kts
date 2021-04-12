@@ -1,7 +1,6 @@
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 
 /*
@@ -59,17 +58,6 @@ object Build : BuildType({
     }
 
     steps {
-        script {
-            name = "Deploy to ECS"
-            scriptContent = """
-                ${'$'}(aws ecr get-login %AWS_REGION% --no-include-email)
-                
-                docker push %ECR_NAME%/%ECR_IMAGE_NAME%:%build.number%
-                docker push %ECR_NAME%/%ECR_IMAGE_NAME%:latest
-                
-                esc deploy %ECS_CLUSTER_NAME% %ECS_SERVICE_NAME% %AWS_REGION% %ECS_DEPLOY_OPTIONS%
-            """.trimIndent()
-        }
         dockerCommand {
             name = "Build api"
             commandType = build {
