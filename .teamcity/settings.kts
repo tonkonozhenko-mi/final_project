@@ -60,17 +60,6 @@ object Build : BuildType({
 
     steps {
         script {
-            name = "Changing environments"
-            enabled = false
-            scriptContent = """
-                sed -i 's@https://fierce-shore-32592.herokuapp.com@http://3.131.64.51:8080@' /home/ubuntu/TeamCity_agent/work/df0b1de548f94fab/src/app/services/token-interceptor.service.ts 
-                sed -i 's@http://@http://3.131.64.51:8080@' /home/ubuntu/TeamCity_agent/work/df0b1de548f94fab/src/environments/environment.ts
-                
-                sed -i 's@https://fierce-shore-32592.herokuapp.com@http://3.131.64.51:8080@' /home/ubuntu/teamcity/buildAgent/work/df0b1de548f94fab/src/app/services/token-interceptor.service.ts 
-                sed -i 's@http://@http://3.131.64.51:8080@' /home/ubuntu/teamcity/buildAgent/work/df0b1de548f94fab/src/environments/environment.ts
-            """.trimIndent()
-        }
-        script {
             name = "Build"
             scriptContent = "yarn run build"
         }
