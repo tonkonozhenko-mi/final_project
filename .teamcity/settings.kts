@@ -71,10 +71,6 @@ object Build : BuildType({
             """.trimIndent()
         }
         script {
-            name = "Yarn install"
-            scriptContent = "yarn install"
-        }
-        script {
             name = "Build"
             scriptContent = "yarn run build"
         }
