@@ -44,7 +44,6 @@ object Build : BuildType({
         password("env.AWS_SECRET_ACCESS_KEY", "credentialsJSON:c40ecf2b-1f3b-4e13-b101-620baccc2b2c", label = "key", description = "key", display = ParameterDisplay.HIDDEN, readOnly = true)
         param("ECS_SERVICE_NAME", "api-%ENV%")
         param("ECS_DEPLOY_OPTIONS", "--ignore-warnings --timeout 500")
-        password("env.AWS_ACCESS_KEY_ID", "credentialsJSON:a967de85-734d-4b88-91db-09db3c2a08c5", label = "access", description = "access", display = ParameterDisplay.HIDDEN, readOnly = true)
         param("ECR_IMAGE_NAME", "back-eschool-mt-%ENV%")
         param("ECR_NAME", "443172575185.dkr.ecr.us-east-2.amazonaws.com")
         param("docker.registry", "443172575185.dkr.ecr.us-east-2.amazonaws.com")
