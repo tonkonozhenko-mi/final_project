@@ -47,7 +47,6 @@ object Build : BuildType({
         param("ECR_NAME", "443172575185.dkr.ecr.us-east-2.amazonaws.com")
         param("docker.registry", "443172575185.dkr.ecr.us-east-2.amazonaws.com")
         param("docker.username", "AWS")
-        param("ENV", "prod")
         param("docker.server", "https://%docker.registry%")
     }
 
