@@ -39,6 +39,7 @@ object Build : BuildType({
     artifactRules = "dist/eSchool => eSchool"
 
     params {
+        password("env.DATASOURCE_USERNAME", "credentialsJSON:560065b7-0592-47a4-844d-5623ec996be2", display = ParameterDisplay.HIDDEN)
         param("docker.registry", "443172575185.dkr.ecr.us-east-2.amazonaws.com")
         param("docker.username", "AWS")
         param("docker.server", "https://%docker.registry%")
