@@ -41,7 +41,6 @@ object Build : BuildType({
     params {
         param("AWS_REGION", "--region us-east-2")
         param("ECS_CLUSTER_NAME", "back-eschool-mt")
-        password("env.AWS_SECRET_ACCESS_KEY", "credentialsJSON:c40ecf2b-1f3b-4e13-b101-620baccc2b2c", label = "key", description = "key", display = ParameterDisplay.HIDDEN, readOnly = true)
         param("ECS_SERVICE_NAME", "api-%ENV%")
         param("ECS_DEPLOY_OPTIONS", "--ignore-warnings --timeout 500")
         param("ECR_IMAGE_NAME", "back-eschool-mt-%ENV%")
