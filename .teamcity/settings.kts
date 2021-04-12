@@ -39,7 +39,6 @@ object Build : BuildType({
     artifactRules = "dist/eSchool => eSchool"
 
     params {
-        param("AWS_REGION", "--region us-east-2")
         param("docker.registry", "443172575185.dkr.ecr.us-east-2.amazonaws.com")
         param("docker.username", "AWS")
         param("docker.server", "https://%docker.registry%")
