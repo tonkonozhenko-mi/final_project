@@ -1,6 +1,5 @@
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.dockerSupport
-import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 
 /*
@@ -55,22 +54,6 @@ object Build : BuildType({
 
     vcs {
         root(DslContext.settingsRoot)
-    }
-
-    steps {
-        dockerCommand {
-            name = "Build api"
-            commandType = build {
-                source = file {
-                    path = "src/app"
-                }
-                namesAndTags = """
-                    %ECR_NAME%/%ECR_IMAGE_NAME%:%build.number%
-                    %ECR_NAME%/%ECR_IMAGE_NAME%:latest
-                """.trimIndent()
-                commandArgs = "--pull --build-arg env=%ENV%"
-            }
-        }
     }
 
     triggers {
