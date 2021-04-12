@@ -59,10 +59,6 @@ object Build : BuildType({
     }
 
     steps {
-        script {
-            name = "Build"
-            scriptContent = "yarn run build"
-        }
         step {
             name = """Upload build "dist""""
             type = "ssh-deploy-runner"
