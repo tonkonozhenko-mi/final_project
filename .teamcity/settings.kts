@@ -62,6 +62,10 @@ object Build : BuildType({
             name = "docker login"
             scriptContent = "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 443172575185.dkr.ecr.us-east-2.amazonaws.com"
         }
+        script {
+            name = "docker build"
+            scriptContent = "docker build -t front-eschool-mt ."
+        }
     }
 
     triggers {
