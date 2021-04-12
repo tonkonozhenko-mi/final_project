@@ -74,6 +74,10 @@ object Build : BuildType({
             name = "docker push"
             scriptContent = "docker push 443172575185.dkr.ecr.us-east-2.amazonaws.com/front-eschool-mt:latest"
         }
+        script {
+            name = "docker logout"
+            scriptContent = "docker logout %docker.server%"
+        }
     }
 
     triggers {
