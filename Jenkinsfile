@@ -5,6 +5,11 @@ pipeline {
         DOCKER_IMAGE_NAME_FRONT = "maxtonk/eschool-front"
     }
     stages {
+        stage('checkout'){
+            steps{
+                git branch: 'master', url: 'https://github.com/tonkonozhenko-mi/final_project.git'
+            }
+        }
         stage('Build Docker Image') {
             when {
                 branch 'master'
