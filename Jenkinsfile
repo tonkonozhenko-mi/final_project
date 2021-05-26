@@ -33,7 +33,7 @@ pipeline {
                 milestone(1)
                 kubernetesDeploy(
                     kubeconfigId: 'kubeconfig_aws',
-                    configs: 'back-test.yaml',
+                    configs: 'kubernetes-front.yaml',
                     enableConfigSubstitution: true
                 )
             }
