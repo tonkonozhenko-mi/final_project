@@ -1,24 +1,34 @@
-  
-node {    
-      def app     
-      stage('Clone repository') {               
-             
-            checkout scm    
+pipeline {
+      agent any
+      stages {
+        stage('Build Docker Image') {               
+          when        
+            branch 'master'
+          }
+          steps {
+            script {
+              app = docker.build("maxtonk/eschool_front")
+              app.inside {
+                sh 'echo $(curl localhost:80)'
+              }
+            }
+          }
       }     
-      stage('Build image') {         
-       
-            app = docker.build("maxtonk/eschool_front")    
-       }     
-      stage('Test image') {           
+       stage('Test image') {           
             app.inside {            
-             
-             sh 'echo "Tests passed"'        
+              sh 'echo "Tests passed"'        
             }    
         }     
-       stage('Push image') {
-                                                  docker.withRegistry('https://registry.hub.docker.com', 'git') {            
-       app.push("${env.BUILD_NUMBER}")            
-       app.push("latest")        
-              }    
+       stage('Push Docker Image') {
+         when {
+           branch 'master'
+         }
+         steps {
+           script {
+             docker.withRegistry('https://registry.hub.docker.com', 'Docker_Hub') {            
+              app.push("${env.BUILD_NUMBER}")            
+              app.push("latest")        
+             }    
            }
+         }
         }
