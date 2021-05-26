@@ -8,9 +8,16 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
-        stage('Test image') {           
-            app.inside {            
-              sh 'echo "Tests passed"'        
+        stage('Test image') { 
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                    app.inside {            
+                        sh 'echo "Tests passed"'
+                    }
+                }
             }    
         } 
         stage('Build Docker Image') {
