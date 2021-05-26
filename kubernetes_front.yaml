@@ -1,38 +1,15 @@
 apiVersion: v1
-kind: Namespace
-metadata:
-  name: test
-
----
-
-apiVersion: v1
-kind: Secret
-metadata:
-  namespace: test
-  name: mariadb-secret
-type: Opaque
-data:
-  mariadb-username: dGhlYWRtaW4=
-  mariadb-password: cXdlcnQtMTE=
-  mariadb-database: ZXNjaG9vbA==
-  mariadb-root-password: cXdlcnQtMTE=
-  mariadb-url: amRiYzpteXNxbDovL2VzY2hvb2wtZGIuY3RjdzFsbTNoYWltLnVzLXdlc3QtMi5yZHMuYW1hem9uYXdzLmNvbTozMzA2L2VzY2hvb2w/dXNlVW5pY29kZT10cnVlJmNoYXJhY3RlckVuY29kaW5nPXV0ZjgmY3JlYXRlRGF0YWJhc2VJZk5vdEV4aXN0PXRydWUmJmF1dG9SZWNvbm5lY3Q9dHJ1ZSZ1c2VTU0w9ZmFsc2U=
-
----
-
-apiVersion: v1
 kind: Service
 metadata:
   namespace: test
-  name: backend-service
+  name: frontend-service
 spec:
-  type: LoadBalancer
   selector:
-    app: backend
+    app: frontend
   ports:
-    - port: 8080
+    - port: 80
       protocol: TCP
-      targetPort: 8080  
+      targetPort: 80  
 
 ---
 
@@ -40,41 +17,28 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: test
-  name: backend
+  name: frontend
   labels:
-    app: backend
+    app: frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: frontend
   template:
     metadata:
       labels:
-        app: backend
+        app: frontend
     spec:
       containers:
-        - name: backend
-          image: maxtonk/eschool:back
+        - name: frontend
+          image: maxtonk/eschool:front
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
           env:
-          - name: DATASOURCE_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: mariadb-secret
-                key: mariadb-username 
-          - name: DATASOURCE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mariadb-secret
-                key: mariadb-password
-          - name: DATASOURCE_URL
-            valueFrom:
-              secretKeyRef:
-                name: mariadb-secret
-                key: mariadb-url
+          - name: baseURL
+            value: backend-service
           resources:
             limits:
               memory: "256Mi"
@@ -82,29 +46,3 @@ spec:
             requests:
               memory: "128Mi"
               cpu: "50m"
-
----
-
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  namespace: test
-  name: backend-ingress
-  annotations:
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-spec:
-  rules:
-    - http:
-        paths:
-          - path: /admin
-            pathType: Exact
-            backend:
-              serviceName: backend-service
-              servicePort: 8080
-          - path: / 
-            pathType: Exact
-            backend:
-              serviceName: frontend-service
-              servicePort: 80
