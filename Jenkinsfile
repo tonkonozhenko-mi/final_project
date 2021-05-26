@@ -8,8 +8,6 @@ pipeline {
             steps {
                 script {
                     app = docker.build("maxtonk/eschool_front")
-                    app.inside {
-                        sh 'echo $(curl localhost:80)'
                     }
                 }
             }
