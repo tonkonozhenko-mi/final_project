@@ -12,6 +12,9 @@ node {
          * docker build on the command line */
 
         app = docker.build("maxtonk/eschool-front")
+        app.inside {
+          sh 'echo $(curl localhost:80)'
+        }
     }
 
     stage('Test image') {
