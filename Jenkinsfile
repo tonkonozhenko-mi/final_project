@@ -14,18 +14,6 @@ pipeline {
                 }
             }
         }
-        stage('Test image') { 
-            when {
-                branch 'master'
-            }
-            steps {
-                script {
-                    app.inside {            
-                        sh 'echo "Tests passed"'
-                    }
-                }
-            }    
-        } 
         stage('Push Docker Image') {
             when {
                 branch 'master'
